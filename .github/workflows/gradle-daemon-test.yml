@@ -24,4 +24,4 @@ jobs:
       - name: List Java processes
         shell: pwsh
         run: |
-          Get-Process java | Select-Object Id, Path, @{Name="CommandLine";Expression={$_.CommandLine}}
+          Get-Process java | Where-Object { $_.CommandLine -like '*GradleDaemon*' } | Select-Object Id, Path, CommandLine
