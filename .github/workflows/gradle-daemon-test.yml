@@ -19,7 +19,7 @@ jobs:
 
       - name: Run a Gradle build (will spawn daemons)
         run: |
-          gradlew.bat build
+          ./gradlew.bat build
 
       - name: List Java processes
         shell: pwsh
