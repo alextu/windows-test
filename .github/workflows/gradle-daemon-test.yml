@@ -29,7 +29,7 @@ jobs:
       - name: Kill GradleDaemon processes
         shell: cmd
         run: |
-          powershell.exe -NoProfile -Command "Get-CimInstance -ClassName Win32_Process -Filter \"Name = 'java.exe' AND CommandLine LIKE '%GradleDaemon%'\" | Select-Object -Property ProcessId, Name, CommandLine"
+          powershell.exe -NoProfile -Command "Get-Process java | Where-Object -FilterScript { \$_.CommandLine -like '*GradleDaemon*' } | Select-Object Id, Path, CommandLine"
 
       - name: List GradleDaemon processes
         shell: pwsh
