@@ -1,0 +1,27 @@
+name: Gradle Daemon Test
+
+on:
+  workflow_dispatch: # run manually from Actions tab
+
+jobs:
+  gradle-daemon:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Run a Gradle build (will spawn daemons)
+        run: |
+          gradlew.bat build
+
+      - name: List Java processes
+        shell: pwsh
+        run: |
+          Get-Process java | Select-Object Id, Path, @{Name="CommandLine";Expression={$_.CommandLine}}
