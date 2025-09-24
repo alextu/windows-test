@@ -21,7 +21,17 @@ jobs:
         run: |
           ./gradlew.bat build
 
-      - name: List Java processes
+      - name: List GradleDaemon processes
+        shell: pwsh
+        run: |
+          Get-Process java | Where-Object { $_.CommandLine -like '*GradleDaemon*' } | Select-Object Id, Path, CommandLine
+
+      - name: Kill GradleDaemon processes
+        shell: pwsh
+        run: |
+          Get-Process java | Where-Object { $_.CommandLine -like '*GradleDaemon*' } | Stop-Process -Force
+
+      - name: List GradleDaemon processes
         shell: pwsh
         run: |
           Get-Process java | Where-Object { $_.CommandLine -like '*GradleDaemon*' } | Select-Object Id, Path, CommandLine
