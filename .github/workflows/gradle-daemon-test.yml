@@ -17,6 +17,11 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: First try
+        shell: cmd
+        run: |
+          powershell.exe -ExecutionPolicy Bypass -Command "Get-Process java | Where-Object { `$_.CommandLine -like '*GradleDaemon*' } | Select-Object Id,Path,CommandLine"
+
       - name: Run a Gradle build (will spawn daemons)
         run: |
           ./gradlew.bat build
