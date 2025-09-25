@@ -21,10 +21,18 @@ jobs:
         run: |
           ./gradlew.bat build
 
-      - name: First try
+      - name: Create list-gradle-daemons.ps1
+        shell: pwsh
+        run: |
+          @'
+          Get-Process java | Where-Object { $_.CommandLine -like '*GradleDaemon*' } | Select-Object Id, Path, CommandLine
+          '@ | Set-Content -Path list-gradle-daemons.ps1 -Encoding UTF8
+
+      - name: Run list-gradle-daemons.ps1 via cmd
         shell: cmd
         run: |
-          powershell.exe -ExecutionPolicy Bypass -Command "Get-Process java | Where-Object { `$_.CommandLine -like '*GradleDaemon*' } | Select-Object Id,Path,CommandLine"
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File list-gradle-daemons.ps1
+
 
       # - name: List GradleDaemon processes
       #   shell: pwsh
