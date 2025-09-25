@@ -29,7 +29,7 @@ jobs:
       - name: Kill GradleDaemon processes
         shell: cmd
         run: |
-          wmic process where "name='java.exe' and commandline like '%%GradleDaemon%%'" get ProcessId,CommandLine
+          powershell.exe -NoProfile -Command "Get-Process java | Select-Object Id,Path,CommandLine"
 
       - name: List GradleDaemon processes
         shell: pwsh
