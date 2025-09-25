@@ -51,7 +51,7 @@ jobs:
         # Run directly from cmd shell, invoking PowerShell
         run: >
           powershell.exe -NoProfile -ExecutionPolicy Bypass -Command
-          "Get-CimInstance Win32_Process -Filter \"Name='java.exe' AND CommandLine LIKE '%GradleDaemon%'\" ^| Select-Object ProcessId, ExecutablePath, CommandLine"
+          "Get-CimInstance Win32_Process -Filter \"Name='java.exe' AND CommandLine LIKE '%GradleDaemon%'\" | Select-Object ProcessId, ExecutablePath, CommandLine"
         shell: cmd
 
       # - name: Run list-gradle-daemons.ps1 via cmd
