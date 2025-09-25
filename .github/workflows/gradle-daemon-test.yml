@@ -17,26 +17,26 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Run a Gradle build (will spawn daemons)
+        run: |
+          ./gradlew.bat build
+
       - name: First try
         shell: cmd
         run: |
           powershell.exe -ExecutionPolicy Bypass -Command "Get-Process java | Where-Object { `$_.CommandLine -like '*GradleDaemon*' } | Select-Object Id,Path,CommandLine"
 
-      - name: Run a Gradle build (will spawn daemons)
-        run: |
-          ./gradlew.bat build
+      # - name: List GradleDaemon processes
+      #   shell: pwsh
+      #   run: |
+      #     Get-Process java | Where-Object { $_.CommandLine -like '*GradleDaemon*' } | Select-Object Id, Path, CommandLine
 
-      - name: List GradleDaemon processes
-        shell: pwsh
-        run: |
-          Get-Process java | Where-Object { $_.CommandLine -like '*GradleDaemon*' } | Select-Object Id, Path, CommandLine
+      # - name: Kill GradleDaemon processes
+      #   shell: cmd
+      #   run: |
+      #     powershell.exe -ExecutionPolicy Bypass -Command "Get-Process java | Where-Object { `$_.CommandLine -like '*GradleDaemon*' } | Select-Object Id,Path,CommandLine"
 
-      - name: Kill GradleDaemon processes
-        shell: cmd
-        run: |
-          powershell.exe -ExecutionPolicy Bypass -Command "Get-Process java | Where-Object { `$_.CommandLine -like '*GradleDaemon*' } | Select-Object Id,Path,CommandLine"
-
-      - name: List GradleDaemon processes
-        shell: pwsh
-        run: |
-          Get-Process java | Where-Object { $_.CommandLine -like '*GradleDaemon*' } | Select-Object Id, Path, CommandLine
+      # - name: List GradleDaemon processes
+      #   shell: pwsh
+      #   run: |
+      #     Get-Process java | Where-Object { $_.CommandLine -like '*GradleDaemon*' } | Select-Object Id, Path, CommandLine
